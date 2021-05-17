@@ -38,14 +38,19 @@ public class LibraryApp {
 
 	// select user type
 	static void userSelection() {
-		int selection;
+		int selection = 0;
 
 		System.out.println("Welcome to the GCIT Library Management System. Which category of a user are you \n");
 		System.out.println("1. Librarian");
 		System.out.println("2. Administrator");
 		System.out.println("3. Borrower \n");
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
+		
 
 		switch (selection) {
 		case 1:
@@ -65,13 +70,17 @@ public class LibraryApp {
 
 	// START OF LIBRARY MENUS
 	static void libStart() {
-		int selection;
+		int selection = 0;
 
 		System.out.println("Librarian Selected \n");
 		System.out.println("1. Branch Selection");
 		System.out.println("2. Quit to previous \n");
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		switch (selection) {
 		case 1:
@@ -89,7 +98,7 @@ public class LibraryApp {
 	// select branch
 	static void libBranchSelect() {
 		LibrarianService ls = new LibrarianService();
-		int selection;
+		int selection = 0;
 		int count = 1;
 
 		List<Branch> branches = new ArrayList<>();
@@ -108,7 +117,11 @@ public class LibraryApp {
 		}
 
 		System.out.println((branches.size() + 1) + ". Quit to previous \n");
-		selection = sc.nextInt(); // list position of selected branch
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		} // list position of selected branch
 
 		// if selection is within the array
 		if (selection >= 1 && selection <= branches.size()) {
@@ -124,14 +137,18 @@ public class LibraryApp {
 
 	// select update or add copies to selected branch
 	static void libModifyBranch(Branch branch) {
-		int selection;
+		int selection = 0;
 
 		System.out.println("Branch Modification \n");
 		System.out.println("1. Update the details of the Library ");
 		System.out.println("2. Add copies of Book to the Branch");
 		System.out.println("3. Quit to previous \n");
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		switch (selection) {
 		case 1:
@@ -289,14 +306,18 @@ public class LibraryApp {
 
 	// select operation for borrower
 	static void borTask(Borrower borrower) {
-		int selection;
+		int selection = 0;
 
 		System.out.println("Card Number Valid \n");
 		System.out.println("1. Check out a book");
 		System.out.println("2. Return a Book");
 		System.out.println("3. Quit to previous \n");
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		switch (selection) {
 		case 1:
@@ -317,7 +338,7 @@ public class LibraryApp {
 	// select branch to checkout from
 	static void borCheckOutBranch(Borrower borrower) {
 		LibrarianService ls = new LibrarianService();
-		int selection;
+		int selection = 0;
 		int count = 1;
 
 		List<Branch> branches = new ArrayList<>();
@@ -335,7 +356,11 @@ public class LibraryApp {
 			count++;
 		}
 		System.out.println((branches.size() + 1) + ". Quit to previous \n");
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is within the array
 		if (selection >= 1 && selection <= branches.size()) {
@@ -353,7 +378,7 @@ public class LibraryApp {
 	static void borCheckOutBook(Borrower borrower, Branch branch) {
 		LibrarianService ls = new LibrarianService();
 		BorrowerService bs = new BorrowerService();
-		int selection;
+		int selection = 0;
 		int count = 1;
 		List<Book> books = new ArrayList<>();
 		List<BookCopies> bookCopies = new ArrayList<>();
@@ -377,7 +402,11 @@ public class LibraryApp {
 			count++;
 		}
 		System.out.println((books.size() + 1) + ". Quit to previous \n");
-		selection = sc.nextInt(); // list position of selected branch
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		} // list position of selected branch
 
 		// if selection is within the array
 		if (selection >= 1 && selection <= books.size()) {
@@ -417,7 +446,7 @@ public class LibraryApp {
 	// select branch to return book to
 	static void borReturnBranch(Borrower borrower) {
 		LibrarianService ls = new LibrarianService();
-		int selection;
+		int selection = 0;
 		int count = 1;
 
 		List<Branch> branches = new ArrayList<>();
@@ -435,7 +464,11 @@ public class LibraryApp {
 			count++;
 		}
 		System.out.println((branches.size() + 1) + ". Quit to previous \n");
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is within the array
 		if (selection >= 1 && selection <= branches.size()) {
@@ -453,7 +486,7 @@ public class LibraryApp {
 	static void borReturnBook(Borrower borrower, Branch branch) {
 		LibrarianService ls = new LibrarianService();
 		BorrowerService bs = new BorrowerService();
-		int selection;
+		int selection = 0;
 		int count = 1;
 		List<Book> books = new ArrayList<>();
 		List<BookCopies> bookCopies = new ArrayList<>();
@@ -463,7 +496,7 @@ public class LibraryApp {
 
 		// find books loaned to borrower cardNo
 		try {
-			books = bs.getBooksBorrowed(borrower.getCardNo());
+			books = bs.getBooksBorrowed(borrower.getCardNo(), branch.getBranchId());
 		} catch (SQLException e) {
 			System.out.println("Error getting books");
 
@@ -476,7 +509,11 @@ public class LibraryApp {
 			count++;
 		}
 		System.out.println((books.size() + 1) + ". Quit to previous \n");
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is within the array
 		if (selection >= 1 && selection <= books.size()) {
@@ -506,7 +543,7 @@ public class LibraryApp {
 
 			}
 
-		} else if (selection == 6) {
+		} else if (selection == (books.size() + 1)) {
 			borTask(borrower);
 		} else {
 			System.out.println("Invalid Selection");
@@ -516,7 +553,7 @@ public class LibraryApp {
 
 	// START OF ADMIN MENUS
 	static void adminStart() {
-		int selection;
+		int selection = 0;
 
 		System.out.println("Administrator Selected\nWhich table would you like to modify: \n");
 		System.out.println("1. Book");
@@ -527,7 +564,11 @@ public class LibraryApp {
 		System.out.println("6. Book Loan");
 		System.out.println("7. Quit to previous \n");
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		switch (selection) {
 		case 1:
@@ -559,7 +600,7 @@ public class LibraryApp {
 
 	// selection menu for book table
 	static void adminBook() {
-		int selection;
+		int selection = 0;
 
 		System.out.println("Book Table Selected\nWhich action would you like to perform: \n");
 		System.out.println("1. Add");
@@ -567,7 +608,11 @@ public class LibraryApp {
 		System.out.println("3. Delete");
 		System.out.println("4. Quit to previous \n");
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		switch (selection) {
 		case 1:
@@ -681,7 +726,7 @@ public class LibraryApp {
 		LibrarianService ls = new LibrarianService();
 		AdminService as = new AdminService();
 		Scanner scBookUpdate = new Scanner(System.in);
-		int selection;
+		int selection = 0;
 		int count = 1;
 		String title;
 		Book bookUpdate = new Book();
@@ -706,7 +751,11 @@ public class LibraryApp {
 			count++;
 		}
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= books.size()) {
@@ -734,7 +783,11 @@ public class LibraryApp {
 			System.out.println(count + ". " + author.getName());
 			count++;
 		}
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= authors.size()) {
@@ -757,7 +810,11 @@ public class LibraryApp {
 			System.out.println(count + ". " + publisher.getName());
 			count++;
 		}
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= publishers.size()) {
@@ -784,7 +841,7 @@ public class LibraryApp {
 	static void adminBookDelete() {
 		LibrarianService ls = new LibrarianService();
 		AdminService as = new AdminService();
-		int selection;
+		int selection = 0;
 		int count = 1;
 		List<Book> books = new ArrayList<>();
 		Book bookDelete = new Book();
@@ -803,7 +860,11 @@ public class LibraryApp {
 			count++;
 		}
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= books.size()) {
@@ -824,7 +885,7 @@ public class LibraryApp {
 
 	// selection menu for author table
 	static void adminAuthor() {
-		int selection;
+		int selection = 0;
 
 		System.out.println("Author Table Selected\nWhich action would you like to perform: \n");
 		System.out.println("1. Add");
@@ -832,7 +893,11 @@ public class LibraryApp {
 		System.out.println("3. Delete");
 		System.out.println("4. Quit to previous \n");
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		switch (selection) {
 		case 1:
@@ -887,7 +952,7 @@ public class LibraryApp {
 	static void adminAuthorUpdate() {
 		AdminService as = new AdminService();
 		Scanner scAuthorUpdate = new Scanner(System.in);
-		int selection;
+		int selection = 0;
 		int count = 1;
 		String name;
 		Author authorUpdate = new Author();
@@ -907,7 +972,11 @@ public class LibraryApp {
 			count++;
 		}
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= authors.size()) {
@@ -935,7 +1004,7 @@ public class LibraryApp {
 	static void adminAuthorDelete() {
 		LibrarianService ls = new LibrarianService();
 		AdminService as = new AdminService();
-		int selection;
+		int selection = 0;
 		int count = 1;
 		List<Author> authors = new ArrayList<>();
 		Author authorDelete = new Author();
@@ -954,7 +1023,11 @@ public class LibraryApp {
 			count++;
 		}
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= authors.size()) {
@@ -975,7 +1048,7 @@ public class LibraryApp {
 
 	// selection menu for publisher table
 	static void adminPublisher() {
-		int selection;
+		int selection = 0;
 
 		System.out.println("Publisher Table Selected\nWhich action would you like to perform: \n");
 		System.out.println("1. Add");
@@ -983,7 +1056,11 @@ public class LibraryApp {
 		System.out.println("3. Delete");
 		System.out.println("4. Quit to previous \n");
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		switch (selection) {
 		case 1:
@@ -1046,7 +1123,7 @@ public class LibraryApp {
 	static void adminPublisherUpdate() {
 		AdminService as = new AdminService();
 		Scanner scPublisherUpdate = new Scanner(System.in);
-		int selection;
+		int selection = 0;
 		int count = 1;
 		String name;
 		Publisher publisherUpdate = new Publisher();
@@ -1066,7 +1143,11 @@ public class LibraryApp {
 			count++;
 		}
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= publishers.size()) {
@@ -1101,7 +1182,7 @@ public class LibraryApp {
 	// delete from publisher table
 	static void adminPublisherDelete() {
 		AdminService as = new AdminService();
-		int selection;
+		int selection = 0;
 		int count = 1;
 		List<Publisher> publishers = new ArrayList<>();
 		Publisher publisherDelete = new Publisher();
@@ -1120,7 +1201,11 @@ public class LibraryApp {
 			count++;
 		}
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= publishers.size()) {
@@ -1140,7 +1225,7 @@ public class LibraryApp {
 
 	// selection menu for branch table
 	static void adminBranch() {
-		int selection;
+		int selection = 0;
 
 		System.out.println("Branch Table Selected\nWhich action would you like to perform: \n");
 		System.out.println("1. Add");
@@ -1148,7 +1233,11 @@ public class LibraryApp {
 		System.out.println("3. Delete");
 		System.out.println("4. Quit to previous \n");
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		switch (selection) {
 		case 1:
@@ -1209,7 +1298,7 @@ public class LibraryApp {
 		LibrarianService ls = new LibrarianService();
 		AdminService as = new AdminService();
 		Scanner scBranchUpdate = new Scanner(System.in);
-		int selection;
+		int selection = 0;
 		int count = 1;
 		String name;
 		Branch branchUpdate = new Branch();
@@ -1229,7 +1318,11 @@ public class LibraryApp {
 			count++;
 		}
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= branches.size()) {
@@ -1261,7 +1354,7 @@ public class LibraryApp {
 	static void adminBranchDelete() {
 		LibrarianService ls = new LibrarianService();
 		AdminService as = new AdminService();
-		int selection;
+		int selection = 0;
 		int count = 1;
 		List<Branch> branches = new ArrayList<>();
 		Branch branchDelete = new Branch();
@@ -1280,7 +1373,11 @@ public class LibraryApp {
 			count++;
 		}
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= branches.size()) {
@@ -1301,7 +1398,7 @@ public class LibraryApp {
 
 	// selection menu for borrower table
 	static void adminBorrower() {
-		int selection;
+		int selection = 0;
 
 		System.out.println("Borrower Table Selected\nWhich action would you like to perform: \n");
 		System.out.println("1. Add");
@@ -1309,7 +1406,11 @@ public class LibraryApp {
 		System.out.println("3. Delete");
 		System.out.println("4. Quit to previous \n");
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		switch (selection) {
 		case 1:
@@ -1366,7 +1467,7 @@ public class LibraryApp {
 	static void adminBorrowerUpdate() {
 		AdminService as = new AdminService();
 		Scanner scBorrowerUpdate = new Scanner(System.in);
-		int selection;
+		int selection = 0;
 		int count = 1;
 		Borrower borrowerUpdate = new Borrower();
 		List<Borrower> borrowers = new ArrayList<>();
@@ -1385,7 +1486,11 @@ public class LibraryApp {
 			count++;
 		}
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= borrowers.size()) {
@@ -1420,7 +1525,7 @@ public class LibraryApp {
 	// delete from borrower table
 	static void adminBorrowerDelete() {
 		AdminService as = new AdminService();
-		int selection;
+		int selection = 0;
 		int count = 1;
 		List<Borrower> borrowers = new ArrayList<>();
 		Borrower borrowerDelete = new Borrower();
@@ -1439,7 +1544,11 @@ public class LibraryApp {
 			count++;
 		}
 
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= borrowers.size()) {
@@ -1462,7 +1571,7 @@ public class LibraryApp {
 	static void adminBookLoan() {
 		AdminService as = new AdminService();
 		Scanner scBookLoan = new Scanner(System.in);
-		int selection;
+		int selection = 0;
 		int count = 1;
 		List<BookLoans> bookLoans = new ArrayList<>();
 		BookLoans bookLoan = new BookLoans();
@@ -1481,7 +1590,11 @@ public class LibraryApp {
 					+ loan.getDueDate());
 			count++;
 		}
-		selection = sc.nextInt();
+		try {
+			selection = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("Invalid Input");
+		}
 
 		// if selection is in array
 		if (selection >= 1 && selection <= bookLoans.size()) {

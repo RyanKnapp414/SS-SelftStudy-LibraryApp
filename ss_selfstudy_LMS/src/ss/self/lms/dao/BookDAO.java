@@ -41,8 +41,8 @@ public class BookDAO extends BaseDAO<Book> {
 		return read("select tbl_book.bookId, tbl_book.title, tbl_book.authId, tbl_book.pubId from tbl_book inner join tbl_book_copies on tbl_book.bookId = tbl_book_copies.bookId where tbl_book_copies.branchId = ? AND noOfCopies > 0", new Object[] {branchId});
 	}
 	
-	public List<Book> readBooksBorrowedFromCardNo(Integer cardNo) throws ClassNotFoundException, SQLException {
-		return read("select tbl_book.bookId, tbl_book.title, tbl_book.authId, tbl_book.pubId from tbl_book inner join tbl_book_loans on tbl_book.bookId = tbl_book_loans.bookId where tbl_book_loans.cardNo = ?", new Object[] {cardNo});
+	public List<Book> readBooksBorrowedFromCardNo(Integer cardNo, Integer branchId) throws ClassNotFoundException, SQLException {
+		return read("select tbl_book.bookId, tbl_book.title, tbl_book.authId, tbl_book.pubId from tbl_book inner join tbl_book_loans on tbl_book.bookId = tbl_book_loans.bookId where tbl_book_loans.cardNo = ? AND tbl_book_loans.branchId = ?", new Object[] {cardNo, branchId});
 	}
 	
 	public List<Book> extractData(ResultSet rs) throws ClassNotFoundException, SQLException {

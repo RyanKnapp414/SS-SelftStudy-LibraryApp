@@ -63,14 +63,14 @@ public class BorrowerService {
 		
 	}
 	
-	public List<Book> getBooksBorrowed(Integer cardNo) throws SQLException {
+	public List<Book> getBooksBorrowed(Integer cardNo, Integer branchId) throws SQLException {
 		Connection conn = null;
 		List<Book> books = new ArrayList<>();
 		try {
 			conn = util.getConnection();
 			BookDAO bdao = new BookDAO(conn);
 			
-			books = bdao.readBooksBorrowedFromCardNo(cardNo);
+			books = bdao.readBooksBorrowedFromCardNo(cardNo, branchId);
 			
 			conn.commit();
 			return books;
