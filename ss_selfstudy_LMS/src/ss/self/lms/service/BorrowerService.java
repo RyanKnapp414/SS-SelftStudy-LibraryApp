@@ -75,7 +75,7 @@ public class BorrowerService {
 			conn.commit();
 			return books;
 		} catch (Exception e) {
-			System.out.println("Error getting borrowers");
+			System.out.println("Error getting books borrowed");
 			e.printStackTrace();
 			conn.rollback();
 			return null;
